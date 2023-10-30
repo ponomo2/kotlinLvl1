@@ -55,7 +55,7 @@ private fun ListItem(
     ) {
         // количество квадратов
         var squareNumber = rememberSaveable {
-            mutableStateOf(4)
+            mutableStateOf(0)
         }
 
         // отрисовывает строки, которые заполнены полностью
