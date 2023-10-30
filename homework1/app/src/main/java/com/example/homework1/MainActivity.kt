@@ -71,7 +71,6 @@ private fun ListItem(
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                //.background(color = Color.Blue)
                 .fillMaxWidth()
         ) {
             Button(
@@ -80,7 +79,8 @@ private fun ListItem(
                     containerColor = colorResource(R.color.MediumSlateBlue),
                     contentColor = Color.White),
                 modifier = Modifier
-                    .size(120.dp, 90.dp)
+                    .fillMaxWidth()
+                    .padding(10.dp)
             ) {
                 Text(text = stringResource(R.string.add_button))
             }
@@ -92,7 +92,7 @@ private fun ListItem(
 private fun drawRow(lastNumber: Int, squaresInRow: Int) {
     Row (
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         for (i in squaresInRow downTo 0){
             drawSquare(lastNumber - i)
@@ -102,20 +102,20 @@ private fun drawRow(lastNumber: Int, squaresInRow: Int) {
 
 @Composable
 private fun drawSquare(squareDigit: Int) {
-    Column (
+    val squareWidth: Int = LocalConfiguration.current.screenWidthDp / (
+                            (if (LocalConfiguration.current.orientation ==
+                                    Configuration.ORIENTATION_LANDSCAPE)
+                                    4 else 3))
+    Box(
         modifier = Modifier
+            .size(squareWidth.dp)
+            .padding(10.dp)
+            .background(
+                color = if (squareDigit % 2 == 0) colorResource(R.color.Tomato)
+                else colorResource(R.color.DeepSkyBlue)
+            ),
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = Modifier
-                .size(130.dp, 130.dp)
-                .padding(10.dp)
-                .background(
-                    color = if (squareDigit % 2 == 0) colorResource(R.color.Tomato)
-                    else colorResource(R.color.DeepSkyBlue)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = "$squareDigit", color = Color.White, fontSize = 20.sp)
-        }
+        Text(text = "$squareDigit", color = Color.White, fontSize = 20.sp)
     }
 }
